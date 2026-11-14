@@ -155,6 +155,8 @@ jobs:
       - name: Apply Nano Optimization
         if: ${{ inputs.nanoversion }}
         run: |
+          export CONFIGFILE="trunk/configs/templates/K2P.config"
+          if [ ! -f "$CONFIGFILE" ]; then export CONFIGFILE="trunk/configs/boards/K2P/K2P.config"; fi
           for fs in ANTFS FAT EXFAT EXT2 EXT3 EXT4 XFS FUSE SWAP; do
             sed -i "s/CONFIG_FIRMWARE_ENABLE_${fs}=y/CONFIG_FIRMWARE_ENABLE_${fs}=n/" "$CONFIGFILE"
           done
